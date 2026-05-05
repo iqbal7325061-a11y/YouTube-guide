@@ -1,0 +1,61 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile information",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "username": { "type": "string" },
+        "email": { "type": "string" },
+        "phoneNumber": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email"]
+    },
+    "Channel": {
+      "title": "Channel",
+      "description": "YouTube channel details",
+      "type": "object",
+      "properties": {
+        "ownerId": { "type": "string" },
+        "name": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "logoUrl": { "type": "string" },
+        "bannerUrl": { "type": "string" },
+        "tags": { "type": "array", "items": { "type": "string" } },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["ownerId", "name"]
+    },
+    "GeneratedContent": {
+      "title": "GeneratedContent",
+      "description": "Metadata for AI generated assets (thumbnails, scripts, etc.)",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "type": { "type": "string", "enum": ["thumbnail", "script", "voice", "video", "tag", "title"] },
+        "content": { "type": "string" },
+        "metadata": { "type": "object" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "type", "content"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profiles"
+    },
+    "/channels/{channelId}": {
+      "schema": "Channel",
+      "description": "Channel information"
+    },
+    "/generatedContent/{contentId}": {
+      "schema": "GeneratedContent",
+      "description": "AI generated artifacts"
+    }
+  }
+}
